@@ -11,7 +11,7 @@ This repository contains my work on two major projects:
 2. **NLP-based Sentiment Analysis & Text Summarization** - Sentiment classification using BERT embeddings and multi-language summarization using mBART/mT5.
 
 ## Timeline & Learning Journey
-### Started: February 18, 2025 | Completed: March 25, 2025
+### Started: March 17, 2025 | Completed: May 9, 2025
 
 ### **1. Insurance Fraud Detection**
 - Built a fraud risk prediction app using Streamlit and TensorFlow/Keras.
