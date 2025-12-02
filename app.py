@@ -437,7 +437,7 @@ elif selected == "Customer Feedback":
 # 4. Policy Translation Page
 elif selected == "Policy Translation":
     st.title("Policy Translation & Summarization")
-      
+
     # Load models
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     #Frenchh to English Models
@@ -455,12 +455,12 @@ elif selected == "Policy Translation":
     #Hindi to English Models
     hi_en_tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-hi-en")
     hi_en_model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-hi-en", device_map='auto')
-    # #Spanish to English Model
-    # es_en_tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-es-en")
-    # es_en_model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-es-en").to(device)
-    # #English to Spanish Model
-    # en_es_tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-es")
-    # en_es_model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-es").to(device)
+    #Spanish to English Model
+    es_en_tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-es-en")
+    es_en_model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-es-en").to(device)
+    #English to Spanish Model
+    en_es_tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-es")
+    en_es_model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-es").to(device)
     #summarize Models
     summarizer_tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn")
     summarizer_model = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn", device_map='auto')
@@ -469,8 +469,8 @@ elif selected == "Policy Translation":
     operation = st.radio("Select operation:",
                         ["Translate French to English",
                          "Translate English to French",
-                        #  "Translate Spanish to English",
-                        #  "Translate English to Spanish",
+                         "Translate Spanish to English",
+                         "Translate English to Spanish",
                          "Translate Tamil to English",
                          "Translate English to Hindi",
                          "Translate Hindi to English",
@@ -487,16 +487,16 @@ elif selected == "Policy Translation":
         outputs = en_fr_model.generate(inputs)
         translated = en_fr_tokenizer.decode(outputs[0], skip_special_tokens=True)
         st.success(f"Translated: {translated}")
-      # elif operation == "Translate Spanish to English":
-      #   inputs = es_en_tokenizer.encode(text, return_tensors="pt", truncation=True).to(device)
-      #   outputs = es_en_model.generate(inputs)
-      #   translated = es_en_tokenizer.decode(outputs[0], skip_special_tokens=True)
-      #   st.success(f"Translated: {translated}")
-      # elif operation == "Translate English to Spanish":
-      #   inputs = en_es_tokenizer.encode(text, return_tensors="pt", truncation=True).to(device)
-      #   outputs = en_es_model.generate(inputs)
-      #   translated = en_es_tokenizer.decode(outputs[0], skip_special_tokens=True)
-      #   st.success(f"Translated: {translated}")
+      elif operation == "Translate Spanish to English":
+        inputs = es_en_tokenizer.encode(text, return_tensors="pt", truncation=True).to(device)
+        outputs = es_en_model.generate(inputs)
+        translated = es_en_tokenizer.decode(outputs[0], skip_special_tokens=True)
+        st.success(f"Translated: {translated}")
+      elif operation == "Translate English to Spanish":
+        inputs = en_es_tokenizer.encode(text, return_tensors="pt", truncation=True).to(device)
+        outputs = en_es_model.generate(inputs)
+        translated = en_es_tokenizer.decode(outputs[0], skip_special_tokens=True)
+        st.success(f"Translated: {translated}")
       elif operation == "Translate Tamil to English":
         inputs = ta_en_tokenizer.encode(text, return_tensors="pt", truncation=True).to(device)
         outputs = ta_en_model.generate(inputs)
